@@ -37,6 +37,9 @@ echo -e "\n\ncat ~/README.md" >> ~/.bashrc
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -N "" -f ~/.ssh/id_rsa
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    ssh-add
+    ssh -o StrictHostKeyChecking=no localhost /bin/true
+    ssh -o StrictHostKeyChecking=no panedemo /bin/true
 fi
 
 #
@@ -147,4 +150,4 @@ cd pane-zookeeper
 git pull
 ant jar
 
-popd
+pop
