@@ -34,7 +34,7 @@ cp /etc/skel/.bash_logout .
 
 echo -e "\n\ncat ~/README.md" >> ~/.bashrc
 
-if [ ! -f "~/.ssh/id_rsa" ]; then
+if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -N "" -f ~/.ssh/id_rsa
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 fi
@@ -70,6 +70,7 @@ git checkout class/cs244
 # fix small bug in util/install.sh
 cat util/install.sh | sed "s/install git$/install git-core/" > util/install.sh-fixed
 mv -f util/install.sh-fixed util/install.sh
+chmod a+x util/install.sh
 
 if [ ! -d ~/openflow ]; then
     ./util/install.sh -f
