@@ -21,14 +21,28 @@ if [ `whoami` != "paneuser" ]; then
 fi
 
 #
-# Copy configuration files into place 
+# Install configuration files into place 
 #
 
-echo "Copying configuration files..."
+echo "Installing configuration files..."
 
 sudo cp -f etc/hosts /etc/hosts
 
-cp /etc/skel/.* .
+cp /etc/skel/.bashrc .
+cp /etc/skel/.profile .
+cp /etc/skel/.bash_lougout .
+
+ssh-keygen -N "" -f ~/.ssh/id_rsa
+cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+
+#
+# Install dependencies we know we need
+#
+
+echo "Installing dependencies..."
+
+sudo apt-get -y install ant
+sudo apt-get -y install default-jdk
 
 #
 # Install and build Mininet
@@ -38,7 +52,9 @@ echo "Installing and building mininet-hifi..."
 
 if [ ! -d "mininet" ]; then
     git clone git://github.com/mininet/mininet.git
+    cd mininet
     git checkout -t origin/class/cs244
+    cd ..
 fi
 
 pushd mininet
@@ -55,7 +71,7 @@ popd
 
 echo "Setting-up Open vSwitch..."
 
-pushd openvswitch
+pushd ~/openvswitch
 sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
 popd
 
@@ -82,7 +98,7 @@ popd
 
 echo "Installing and building PANE ..."
 
-if [ ! -d "brownsys-nettle" ]; then
+if [ ! -d "pane" ]; then
     git clone git://github.com/brownsys/pane.git
 fi
 
