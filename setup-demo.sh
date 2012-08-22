@@ -32,6 +32,8 @@ cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
 cp /etc/skel/.bash_lougout .
 
+echo "cat ~/README.md" >> ~/.bashrc
+
 ssh-keygen -N "" -f ~/.ssh/id_rsa
 cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
 

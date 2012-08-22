@@ -1,4 +1,4 @@
-pane-demo-vm
-============
+Welcome to the PANE Demo
+========================================================
 
-Files for configuring and deploying PANE's demo VM
+(put some more useful info here)
