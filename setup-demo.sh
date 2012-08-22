@@ -32,10 +32,12 @@ cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
 cp /etc/skel/.bash_logout .
 
-echo "cat ~/README.md" >> ~/.bashrc
+echo -e "\n\ncat ~/README.md" >> ~/.bashrc
 
-ssh-keygen -N "" -f ~/.ssh/id_rsa
-cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+if [ ! -f "~/.ssh/id_rsa" ]; then
+    ssh-keygen -N "" -f ~/.ssh/id_rsa
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+fi
 
 #
 # Install dependencies we know we need
@@ -45,6 +47,8 @@ echo "Installing dependencies..."
 
 sudo apt-get -y install ant
 sudo apt-get -y install default-jdk
+
+cabal update
 
 #
 # Install and build Mininet
@@ -62,7 +66,20 @@ fi
 pushd mininet
 
 git checkout class/cs244
-./util/install.sh -a
+
+# fix small bug in util/install.sh
+cat util/install.sh | sed "s/install git$/install git-core/" > util/install.sh-fixed
+mv -f util/install.sh-fixed util/install.sh
+
+if [ ! -d ~/openflow ]; then
+    ./util/install.sh -f
+fi
+
+if [ ! -d ~/openvswitch ]; then
+    ./util/install.sh -v
+fi
+
+./util/install.sh -kmntw
 sudo make develop
 
 popd
@@ -73,9 +90,11 @@ popd
 
 echo "Setting-up Open vSwitch..."
 
-pushd ~/openvswitch
-sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
-popd
+if [ ! -f /usr/local/etc/ovs-vswitchd.conf.db ]; then
+    pushd ~/openvswitch
+    sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
+    popd
+fi
 
 #
 # Install and build Nettle
