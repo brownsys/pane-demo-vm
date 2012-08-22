@@ -30,7 +30,7 @@ sudo cp -f etc/hosts /etc/hosts
 
 cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
-cp /etc/skel/.bash_lougout .
+cp /etc/skel/.bash_logout .
 
 echo "cat ~/README.md" >> ~/.bashrc
 

@@ -1,0 +1,7 @@
+Procedure to install on a fresh VM:
+
+cd ~
+sudo umount .gvfs
+rm -rf .* *
+git clone git://github.com/brownsys/pane-demo-vm.git .
+./setup-demo.sh
