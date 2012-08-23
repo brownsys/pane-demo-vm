@@ -41,8 +41,13 @@ if [ ! -f ~/.ssh/id_rsa ]; then
 fi
 
 ETH_DEV=`ifconfig -s | grep eth | head -1 | awk '{ print $1 }'`
-sudo route add -net 10.0.0.0 netmask 255.255.255.0 dev $ETH_DEV
-sudo route add -host 127.0.0.1 dev lo
+
+echo -e "\n# Route Setup\n" >> ~/.bashrc
+echo "sudo route add -net 10.0.0.0 netmask 255.255.255.0 dev $ETH_DEV" >> ~/.bashrc
+echo "sudo route add -host 127.0.0.1 dev lo" >> ~/.bashrc
+
+echo -e "\n# Cleaning\n" >> ~/.bashrc
+echo "rmdir Documents Downloads Music Pictures Public Templates Videos" >> ~/.bashrc
 
 #
 # Install dependencies we know we need
@@ -152,4 +157,4 @@ cd pane-zookeeper
 git pull
 ant jar
 
-pop
+popd

@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <gconf>
+	<entry name="new_window" mtime="1345688349" type="string">
+		<stringvalue>&lt;Control&gt;n</stringvalue>
+	</entry>
+	<entry name="new_tab" mtime="1345688347" type="string">
+		<stringvalue>&lt;Control&gt;t</stringvalue>
+	</entry>
 	<entry name="paste" mtime="1345681882" type="string">
 		<stringvalue>&lt;Control&gt;v</stringvalue>
 	</entry>
