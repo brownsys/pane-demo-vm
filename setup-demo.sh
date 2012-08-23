@@ -32,8 +32,6 @@ cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
 cp /etc/skel/.bash_logout .
 
-echo -e "\n\ncat ~/README.md" >> ~/.bashrc
-
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -N "" -f ~/.ssh/id_rsa
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -41,6 +39,10 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh -o StrictHostKeyChecking=no localhost /bin/true
     ssh -o StrictHostKeyChecking=no panedemo /bin/true
 fi
+
+ETH_DEV=`ifconfig -s | grep eth | head -1 | awk '{ print $1 }'`
+sudo route add -net 10.0.0.0 netmask 255.255.255.0 dev $ETH_DEV
+sudo route add -host 127.0.0.1 dev lo
 
 #
 # Install dependencies we know we need
