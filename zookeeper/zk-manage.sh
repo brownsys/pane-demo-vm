@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ZK_DIR="/home/pane/zookeeper/"
+ZK_DIR="/home/paneuser/zookeeper/"
 SSH_OPTS="-o StrictHostKeyChecking=no"
 
 SERVER_CONF=$1

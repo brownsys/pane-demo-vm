@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ZK_DIR="/home/pane/zookeeper/"
+ZK_DIR="/home/paneuser/zookeeper/"
 ZK_BIN_DIR="$ZK_DIR/pane-zookeeper/bin"
 
 SERVER_CONF=$1
