@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="paste" mtime="1345681882" type="string">
+		<stringvalue>&lt;Control&gt;v</stringvalue>
+	</entry>
+	<entry name="copy" mtime="1345681877" type="string">
+		<stringvalue>&lt;Control&gt;c</stringvalue>
+	</entry>
+	<entry name="prev_tab" mtime="1345681863" type="string">
+		<stringvalue>F1</stringvalue>
+	</entry>
+	<entry name="help" mtime="1345681854" type="string">
+		<stringvalue>&lt;Shift&gt;F1</stringvalue>
+	</entry>
+	<entry name="next_tab" mtime="1345681839" type="string">
+		<stringvalue>F2</stringvalue>
+	</entry>
+</gconf>
