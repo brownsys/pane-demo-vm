@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <gconf>
+	<entry name="scrollback_unlimited" mtime="1345837014" type="bool" value="true"/>
 	<entry name="use_theme_colors" mtime="1345670440" type="bool" value="false"/>
 	<entry name="visible_name" mtime="1345670440" type="string">
 		<stringvalue>Default</stringvalue>
