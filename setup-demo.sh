@@ -157,4 +157,29 @@ cd pane-zookeeper
 git pull
 ant jar
 
+# Get the custom ZooKeeper jar into our Maven repo
+cd build
+
+ZK_VER=`ls -1 zookeeper-*.jar | sed s/^zookeeper-// | sed s/\.jar$//`
+mvn install:install-file -Dfile=zookeeper-$ZK_VER.jar -DgroupId=org.apache.zookeeper -DartifactId=zookeeper -Dversion=$ZK_VER -Dpackaging=jar
+
+popd
+
+#
+# Install and build ZooKeeper benchmark
+
+echo "Installing and building ZooKeeper Benchmark..."
+
+pushd zookeeper
+
+if [ ! -d "zookeeper-benchmark" ]; then
+    git clone git://github.com/brownsys/zookeeper-benchmark.git
+fi
+
+cd zookeeper-benchmark
+
+git pull
+
+mvn -DZooKeeperVersion=$ZK_VER package
+
 popd
