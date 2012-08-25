@@ -147,6 +147,7 @@ fi
 pushd pane
 cabal install --only-dependencies
 make
+make clientlibs
 popd
 
 
