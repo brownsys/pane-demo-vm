@@ -60,6 +60,16 @@ sudo apt-get -y install default-jdk
 
 cabal update
 
+# install maven3 by hand
+
+if [ "`which mvn`" == "" ]; then
+    wget http://ftp.heanet.ie/mirrors/www.apache.org/dist/maven/binaries/apache-maven-3.0.4-bin.tar.gz
+    sudo cp -R apache-maven-3.0.4 /usr/local
+    sudo ln -s /usr/local/apache-maven-3.0.4/bin/mvn /usr/bin/mvn
+    rm -rf apache-maven-3.0.4
+    rm apache-maven-3.0.4-bin.tar.gz
+fi
+
 #
 # Install and build Mininet
 #
