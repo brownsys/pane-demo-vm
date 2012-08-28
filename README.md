@@ -2,7 +2,7 @@ Welcome to the PANE Demo
 ========================================================
 
 This VM is configured to with example programs and demos to illustrate the
-promise of Participatory Network.
+promise of Participatory Networking.
 
 To get started:
 
