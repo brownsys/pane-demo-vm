@@ -42,11 +42,12 @@ class OVSTCSwitch(OVSSwitch):
 
     def TCReapply(self, intf):
         if type(intf) is TCIntf:
+            # Default configuration for OVS's QoS
             self.cmd('ovs-vsctl -- set Port ' + intf.name + ' qos=@newqos'
                      ' -- --id=@newqos create QoS type=linux-htb'
                      ' queues=0=@default'
                      ' -- --id=@default create Queue other-config:min-rate=1')
-        if type(intf) is TCIntf:
+            # Reset Mininet's configuration
             res = intf.config( **intf.params )
             parent = res['parent']
             # Re-add qdisc, root, and default classes OVS created
