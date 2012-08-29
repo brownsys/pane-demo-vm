@@ -11,7 +11,8 @@ from mininet.node import Node, OVSKernelSwitch, RemoteController, CPULimitedHost
 from mininet.link import TCLink
 from mininet.util import irange, customConstructor
 
-from PaneDemoUtil import LocalPaneController, PaneTopo, setupPaneNAT, clearPaneNAT, addDictOption
+from PaneDemoUtil import LocalPaneController, PaneTopo, OVSTCSwitch, setupPaneNAT, clearPaneNAT, addDictOption
+
 
 
 CONTROLLERDEF = 'local'
@@ -86,7 +87,7 @@ class PaneDemo(object):
 
         network = Mininet(topo, controller=controller, link=TCLink, 
                           # host=CPULimitedHost, # TODO(adf) upgrade Ubuntu?
-                          switch=OVSKernelSwitch, ipBase='10.0.0.0/24')
+                          switch=OVSTCSwitch, ipBase='10.0.0.0/24')
 
         self.launchNetwork(network, host_cmd, host_cmd_opts)
         self.demo(network)

@@ -1,12 +1,12 @@
-"Utility functions for PANE Demos."
+"Utility functions and classes for PANE Demos."
 
 # NAT setup inspired by netcore/examples/Gateway.py
 
 from time import sleep
 
-from mininet.node import Controller
+from mininet.link import TCIntf
+from mininet.node import Controller, OVSSwitch
 from mininet.topo import Topo
-
 
 class LocalPaneController(Controller):
     def __init__(self, name, pane_cmd='/home/paneuser/pane/pane', ip='127.0.01',
@@ -36,12 +36,55 @@ class PaneTopo(Topo):
         return h
 
 
+class OVSTCSwitch(OVSSwitch):
+    # A version of OVSSwitch with which you can use OVS's QoS support
+    # Currently, only supports HTB, although OVS also supports HFSC
+
+    def TCReapply(self, intf):
+        if type(intf) is TCIntf:
+            self.cmd('ovs-vsctl -- set Port ' + intf.name + ' qos=@newqos'
+                     ' -- --id=@newqos create QoS type=linux-htb'
+                     ' queues=0=@default'
+                     ' -- --id=@default create Queue other-config:min-rate=1')
+        if type(intf) is TCIntf:
+            res = intf.config( **intf.params )
+            parent = res['parent']
+            # Re-add qdisc, root, and default classes OVS created
+            intf.tc("%s qdisc add dev %s " + parent +
+                    " handle 1: htb default 1")
+            intf.tc("%s class add dev %s classid 1:0xfffe parent 1: htb"
+                    " rate 10000Mbit")
+            intf.tc("%s class add dev %s classid 1:1 parent 1:0xfffe htb"
+                    " rate 1500")
+
+    def dropOVSqos(self, intf):
+        out = self.cmd('ovs-vsctl -- get QoS ' + intf.name + ' queues')
+        out = out.rstrip("}\n").lstrip("{").split(",")
+        queues = map(lambda x: x.split("=")[1], out)
+
+        self.cmd('ovs-vsctl -- destroy QoS ' + intf.name +
+                 ' -- clear Port ' + intf.name + ' qos')
+
+        for q in queues:
+            self.cmd('ovs-vsctl destroy Queue ' + q)
+
+    def detach(self, intf):
+        self.dropOVSqos(intf)
+        OVSSwitch.detach(intf)
+
+    def stop(self):
+        for intf in self.intfList():
+            if type(intf) is TCIntf:
+                self.dropOVSqos(intf)
+        OVSSwitch.stop(self)
+
+
 def setupPaneNAT(network):
     pane_nat = network.getNodeByName('pane-nat')
     # TODO(adf): in a more extreme setup, we could move eth0 and pane-nat into
     # their own namespace; this would mean that only the OpenFlow network
     # would have internet connectivity (not the control network, which is also
-    # where the regular VM terminals hang out.
+    # where the regular VM terminals hang out).
     #
     # Intf('eth0', pane_nat)
     # .... dhcp setup .... 
@@ -66,8 +109,7 @@ def clearPaneNAT(network):
     pane_nat.cmd('iptables -F')
     pane_nat.cmd('iptables -Z')
 
-
-# addDictOption shamelessly stolen from Mininet. thanks Brandon!
+# addDictOption shamelessly stolen from Mininet. thanks Bob & Brandon!
 def addDictOption( opts, choicesDict, default, name, helpStr=None ):
     """Convenience function to add choices dicts to OptionParser.
        opts: OptionParser instance
