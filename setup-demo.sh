@@ -77,7 +77,9 @@ fi
 echo "Installing and building mininet-hifi..."
 
 if [ ! -d "mininet" ]; then
-    git clone git://github.com/mininet/mininet.git
+#    git clone git://github.com/mininet/mininet.git
+# Temporarily use my fork until some patches are applied upstream
+    git clone git://github.com/adferguson/mininet.git
     cd mininet
     git checkout -t origin/class/cs244
     cd ..
