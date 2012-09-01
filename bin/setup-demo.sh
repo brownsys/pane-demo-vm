@@ -8,7 +8,7 @@ set -o nounset
 
 #
 # Sanity checks
-# 
+#
 
 if [ `hostname` != "panedemo" ]; then
     echo "This script is designed to be run on the PANE demo VM. Exiting."
@@ -20,8 +20,10 @@ if [ `whoami` != "paneuser" ]; then
     exit
 fi
 
+cd /home/paneuser
+
 #
-# Install configuration files into place 
+# Install configuration files into place
 #
 
 echo "Installing configuration files..."
@@ -137,7 +139,7 @@ cabal install
 popd
 
 #
-# Install and build PANE 
+# Install and build PANE
 #
 
 echo "Installing and building PANE ..."
