@@ -9,7 +9,7 @@ from mininet.node import Controller, OVSSwitch
 from mininet.topo import Topo
 
 class LocalPaneController(Controller):
-    def __init__(self, name, pane_cmd='/home/paneuser/pane/pane', ip='127.0.01',
+    def __init__(self, name, pane_cmd='/home/paneuser/pane/pane', ip='127.0.0.1',
                  paneport=4242, ofport=6633, **kwags):
         Controller.__init__(self, name, command=pane_cmd,
                             cargs='-p %d %%d' % paneport, ip=ip,
