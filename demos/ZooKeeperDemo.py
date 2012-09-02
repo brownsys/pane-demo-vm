@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import time
 import threading
 
@@ -24,8 +25,7 @@ class ZooKeeperDemo(PaneDemo):
         # Now run a benchmark while links are heavily loaded
         self.iperfLaunch()
         self.benchmark("no-pane-post")
-        print "Waiting for iperf to finish..."
-        self.iperfWait()
+        self.iperfWait(verbose=True)
         self.pause(5)
 
         # Restart with a PANE-enabled ZooKeeper
@@ -37,12 +37,12 @@ class ZooKeeperDemo(PaneDemo):
         # Run the benchmark again with heavily loaded links
         self.iperfLaunch()
         self.benchmark("with-pane")
-        print "Waiting for iperf to finish..."
-        self.iperfWait()
+        self.iperfWait(verbose=True)
         self.pause(5)
 
         # Shutdown
         self.zkmanage("conf-nopane", "stop") # XXX change when pane is creating multiple queues properly
+        self.pause(5)
 
 
     def netexec(self, cmd, host="host1", verbose=False):
@@ -51,11 +51,11 @@ class ZooKeeperDemo(PaneDemo):
 
     def zkmanage(self, conf, cmd):
         msg = "Starting" if cmd == "start" else "Stopping"
-        print
-        print "*** " + msg + " ZooKeeper:"
-        print
+        sys.stdout.write("\n*** " + msg + " ZooKeeper: ")
+        sys.stdout.flush()
         self.netexec("/home/paneuser/zookeeper/zk-manage.sh %s %s" % (conf, cmd),
                      host="panebrain")
+        sys.stdout.write("done\n\n")
 
     def benchmark(self, name):
         print
@@ -65,10 +65,10 @@ class ZooKeeperDemo(PaneDemo):
                   "runBenchmark.sh %s --gnuplot" % name, host="panebrain")
 
     def pause(self, length):
-        print
-        print "*** Pausing for " + str(length) + " seconds"
-        print
+        sys.stdout.write("\n*** Pausing for " + str(length) + " seconds: ")
+        sys.stdout.flush()
         time.sleep(length)
+        sys.stdout.write("done\n\n")
 
     def iperfLaunch(self):
         print
@@ -77,26 +77,42 @@ class ZooKeeperDemo(PaneDemo):
 
         with self.iperfWaitSemaphore:
             self.iperfWaitCount = 7 # num runners + 1
+            self.iperfWaitEvent.clear()
 
         iperfRunner(self, "host1", False).start()
+        time.sleep(1)
         iperfRunner(self, "host2", True, "host1").start()
+        time.sleep(1)
         iperfRunner(self, "host3", False).start()
+        time.sleep(1)
         iperfRunner(self, "host4", True, "host3").start()
+        time.sleep(1)
         iperfRunner(self, "host5", False).start()
+        time.sleep(1)
         iperfRunner(self, "host6", True, "host5").start()
 
-        print "Pausing for 15 seconds to let the traffic build up..."
+        sys.stdout.write("Pausing for 15 seconds to let the traffic build up... ")
+        sys.stdout.flush()
         time.sleep(15)
+        sys.stdout.write("done\n")
 
-    def iperfWait(self):
+    def iperfWait(self, verbose=False):
         # Based on lightweight barrier described at:
         # http://stackoverflow.com/questions/887346/synchronising-multiple-threads-in-python
+
+        if verbose:
+            sys.stdout.write("\n*** Waiting for iperf to finish... ")
+            sys.stdout.flush()
+
         with self.iperfWaitSemaphore:
             self.iperfWaitCount -= 1
             if self.iperfWaitCount == 0:
                 self.iperfWaitEvent.set()
 
         self.iperfWaitEvent.wait()
+
+        if verbose:
+            sys.stdout.write("done\n\n")
 
 
 class iperfRunner(threading.Thread):
