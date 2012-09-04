@@ -4,8 +4,6 @@ import sys
 import time
 import threading
 
-from mininet.cli import CLI
-
 from PaneDemo import PaneDemo
 
 class ZooKeeperDemo(PaneDemo):
@@ -62,7 +60,8 @@ class ZooKeeperDemo(PaneDemo):
         print "*** Starting benchmark: " + name
         print
         self.netexec("/home/paneuser/zookeeper/zookeeper-benchmark/"
-                  "runBenchmark.sh %s --gnuplot" % name, host="panebrain")
+                     "runBenchmark.sh %s /home/paneuser/zookeeper/"
+                     "benchmark-mn.conf --gnuplot" % name, host="panebrain")
 
     def pause(self, length):
         sys.stdout.write("\n*** Pausing for " + str(length) + " seconds: ")
