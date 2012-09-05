@@ -1,8 +1,13 @@
 #!/usr/bin/python
 
+import matplotlib
+from pylab import *
+
 import sys
 import time
 import threading
+
+from mininet.cli import CLI
 
 from PaneDemo import PaneDemo
 
@@ -14,6 +19,10 @@ class ZooKeeperDemo(PaneDemo):
 
     def demo(self, network):
         self.network = network
+        subplot(111)
+        #semilogx()
+        ion()
+        hold(True)
 
         # Run a baseline ZooKeeper benchmark
         self.zkmanage("conf-nopane", "start")
@@ -23,6 +32,8 @@ class ZooKeeperDemo(PaneDemo):
         # Now run a benchmark while links are heavily loaded
         self.iperfLaunch()
         self.benchmark("no-pane-post")
+        legend(('Pre', 'Post'))
+        draw()
         self.iperfWait(verbose=True)
         self.pause(5)
 
@@ -35,8 +46,10 @@ class ZooKeeperDemo(PaneDemo):
         # Run the benchmark again with heavily loaded links
         self.iperfLaunch()
         self.benchmark("with-pane")
+        legend(('Pre', 'Post', 'PANE'))
+        draw()
         self.iperfWait(verbose=True)
-        self.pause(5)
+        CLI(self.network)
 
         # Shutdown
         self.zkmanage("conf-nopane", "stop") # XXX change when pane is creating multiple queues properly
@@ -62,6 +75,9 @@ class ZooKeeperDemo(PaneDemo):
         self.netexec("/home/paneuser/zookeeper/zookeeper-benchmark/"
                      "runBenchmark.sh %s /home/paneuser/zookeeper/"
                      "benchmark-mn.conf --gnuplot" % name, host="panebrain")
+        t = self.readLatencies(name, "CREATE")
+        plot(t, arange(0, len(t)) / float(len(t)))
+        draw()
 
     def pause(self, length):
         sys.stdout.write("\n*** Pausing for " + str(length) + " seconds: ")
@@ -112,6 +128,17 @@ class ZooKeeperDemo(PaneDemo):
 
         if verbose:
             sys.stdout.write("done\n\n")
+
+    def readLatencies(self, benchmark, test):
+        latencies = []
+        for hostnum in [0, 1, 2, 3, 4]:
+            f = open("/home/paneuser/zookeeper/zookeeper-benchmark/"
+                    "%s/%d-%s_timings.dat" % (benchmark, hostnum, test))
+            for line in f:
+                (start, end) = map(float, line.split(" "))
+                latencies.append(end - start)
+
+        return sort(latencies)
 
 
 class iperfRunner(threading.Thread):
