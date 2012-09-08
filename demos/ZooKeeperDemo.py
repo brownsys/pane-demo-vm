@@ -74,7 +74,8 @@ class ZooKeeperDemo(PaneDemo):
         print
         self.netexec("/home/paneuser/zookeeper/zookeeper-benchmark/"
                      "runBenchmark.sh %s /home/paneuser/zookeeper/"
-                     "benchmark-mn.conf --gnuplot" % name, host="panebrain")
+                     "benchmark-mn.conf --gnuplot" % name, host="panebrain",
+                     verbose=True)
         t = self.readLatencies(name, "CREATE")
         plot(t, arange(0, len(t)) / float(len(t)))
         draw()
