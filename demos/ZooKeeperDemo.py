@@ -20,7 +20,7 @@ class ZooKeeperDemo(PaneDemo):
     def demo(self, network):
         self.network = network
         subplot(111)
-        #semilogx()
+        semilogx()
         ion()
         hold(True)
 
