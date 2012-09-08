@@ -23,6 +23,9 @@ class ZooKeeperDemo(PaneDemo):
         semilogx()
         ion()
         hold(True)
+        title("ZooKeeper Benchmark Example Results")
+        xlabel("Latency of CREATE (s)")
+        ylabel("Cummulative Distribution Function (CDF)")
 
         # Run a baseline ZooKeeper benchmark
         self.zkmanage("conf-nopane", "start")
