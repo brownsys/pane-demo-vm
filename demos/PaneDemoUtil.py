@@ -10,10 +10,11 @@ from mininet.topo import Topo
 
 class LocalPaneController(Controller):
     def __init__(self, name, pane_cmd='/home/paneuser/pane/pane', ip='127.0.0.1',
-                 paneport=4242, ofport=6633, **kwags):
+                 pane_config="/home/paneuser/etc/pane.cfg", pane_port=4242,
+                 ofport=6633, **kwags):
         Controller.__init__(self, name, command=pane_cmd,
-                            cargs='-p %d %%d' % paneport, ip=ip,
-                            port=ofport, **kwags)
+                            cargs='-c %s -p %d %%d' % pane_config, pane_port,
+                            ip=ip, port=ofport, **kwags)
 
     def start(self):
         Controller.start(self)
