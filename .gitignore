@@ -1,2 +1,14 @@
 .*.swp
 .*.swo
+*.pyc
+zookeeper/server*/logs/
+zookeeper/server*/data/
+
+# ignore for now, could be submodules later
+brownsys-nettle/
+mininet/
+openflow/
+openvswitch/
+pane/
+zookeeper/pane-zookeeper/
+zookeeper/zookeeper-benchmark/

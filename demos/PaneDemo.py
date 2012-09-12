@@ -37,7 +37,7 @@ class PaneDemo(object):
         self.options, self.args = opts.parse_args()
 
     def buildTopo(self):
-        num_hosts = 6
+        num_hosts = 7
         # 10 Mbps bandwidth and 2 ms delay on each link
         linkopts = dict(bw=10, delay='2ms', loss=0, use_htb=True)
 

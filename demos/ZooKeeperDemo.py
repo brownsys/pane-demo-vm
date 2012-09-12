@@ -19,6 +19,7 @@ class ZooKeeperDemo(PaneDemo):
 
     def demo(self, network):
         self.network = network
+        self.network.pingAll()
         subplot(111)
         semilogx()
         ion()
@@ -43,7 +44,7 @@ class ZooKeeperDemo(PaneDemo):
         # Restart with a PANE-enabled ZooKeeper
         self.zkmanage("conf-nopane", "stop")
         self.pause(2)
-        self.zkmanage("conf-nopane", "start") # XXX change when pane is creating multiple queues properly
+        self.zkmanage("conf-pane", "start")
         self.pause(5)
 
         # Run the benchmark again with heavily loaded links
@@ -55,7 +56,7 @@ class ZooKeeperDemo(PaneDemo):
         CLI(self.network)
 
         # Shutdown
-        self.zkmanage("conf-nopane", "stop") # XXX change when pane is creating multiple queues properly
+        self.zkmanage("conf-pane", "stop")
         self.pause(5)
 
 
@@ -68,7 +69,7 @@ class ZooKeeperDemo(PaneDemo):
         sys.stdout.write("\n*** " + msg + " ZooKeeper: ")
         sys.stdout.flush()
         self.netexec("/home/paneuser/zookeeper/zk-manage.sh %s %s" % (conf, cmd),
-                     host="panebrain")
+                     host="host7", verbose=True)
         sys.stdout.write("done\n\n")
 
     def benchmark(self, name):
@@ -77,7 +78,7 @@ class ZooKeeperDemo(PaneDemo):
         print
         self.netexec("/home/paneuser/zookeeper/zookeeper-benchmark/"
                      "runBenchmark.sh %s /home/paneuser/zookeeper/"
-                     "benchmark-mn.conf --gnuplot" % name, host="panebrain",
+                     "benchmark-mn.conf --gnuplot" % name, host="host7",
                      verbose=True)
         t = self.readLatencies(name, "CREATE")
         plot(t, arange(0, len(t)) / float(len(t)))
