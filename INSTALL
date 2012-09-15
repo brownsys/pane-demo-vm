@@ -4,4 +4,4 @@ cd ~
 sudo umount .gvfs
 sudo rm -rf .* *
 git clone git://github.com/brownsys/pane-demo-vm.git .
-./setup-demo.sh
+./bin/setup-demo.sh
