@@ -42,14 +42,15 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh -o StrictHostKeyChecking=no panedemo /bin/true
 fi
 
-ETH_DEV=`ifconfig -s | grep eth | head -1 | awk '{ print $1 }'`
-
 echo -e "\n# Route Setup\n" >> ~/.bashrc
-echo "sudo route add -net 10.0.0.0 netmask 255.255.255.0 dev $ETH_DEV" >> ~/.bashrc
-echo "sudo route add -host 127.0.0.1 dev lo" >> ~/.bashrc
+echo "if [ \"\`sudo route -n | grep \"127.0.0.1\"\`\" == \"\" ]; then" >> ~/.bashrc
+echo "    sudo route add -host 127.0.0.1 dev lo" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
 
 echo -e "\n# Cleaning\n" >> ~/.bashrc
-echo "rmdir Documents Downloads Music Pictures Public Templates Videos" >> ~/.bashrc
+echo "if [ -d \"Documents\" ]; then" >> ~/.bashrc
+echo "    rmdir Documents Downloads Music Pictures Public Templates Videos" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
 
 #
 # Install dependencies we know we need

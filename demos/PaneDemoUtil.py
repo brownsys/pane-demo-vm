@@ -13,7 +13,7 @@ class LocalPaneController(Controller):
                  pane_config="/home/paneuser/etc/pane.cfg", pane_port=4242,
                  ofport=6633, **kwags):
         Controller.__init__(self, name, command=pane_cmd,
-                            cargs='-c %s -p %d %%d' % pane_config, pane_port,
+                            cargs='-c %s -p %d %%d' % (pane_config, pane_port),
                             ip=ip, port=ofport, **kwags)
 
     def start(self):
