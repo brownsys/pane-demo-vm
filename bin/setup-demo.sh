@@ -116,11 +116,13 @@ popd
 
 echo "Setting-up Open vSwitch..."
 
-if [ ! -f /usr/local/etc/ovs-vswitchd.conf.db ]; then
-    pushd ~/openvswitch
-    sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
-    popd
+if [ -f /usr/local/etc/ovs-vswitchd.conf.db ]; then
+    rm /usr/local/etc/ovs-vswitchd.conf.db
 fi
+
+pushd ~/openvswitch
+sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
+popd
 
 #
 # Install and build Nettle
