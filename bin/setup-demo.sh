@@ -60,40 +60,33 @@ echo "Installing dependencies..."
 
 sudo apt-get -y install ant
 sudo apt-get -y install default-jdk
+sudo apt-get -y install maven
+sudo apt-get -y install haskell-platform
+sudo apt-get -y install haskell-platform-prof
 
 cabal update
-
-# install maven3 by hand
-
-if [ "`which mvn`" == "" ]; then
-    wget http://ftp.heanet.ie/mirrors/www.apache.org/dist/maven/binaries/apache-maven-3.0.4-bin.tar.gz
-    sudo cp -R apache-maven-3.0.4 /usr/local
-    sudo ln -s /usr/local/apache-maven-3.0.4/bin/mvn /usr/bin/mvn
-    rm -rf apache-maven-3.0.4
-    rm apache-maven-3.0.4-bin.tar.gz
-fi
 
 #
 # Install and build Mininet
 #
 
-echo "Installing and building mininet-hifi..."
+echo "Installing and building mininet..."
 
 if [ ! -d "mininet" ]; then
 #    git clone git://github.com/mininet/mininet.git
 # Temporarily use my fork until some patches are applied upstream
     git clone git://github.com/adferguson/mininet.git
     cd mininet
-    git checkout -t origin/class/cs244
+    git checkout -t origin/adf-tc-renumber
     cd ..
 fi
 
 pushd mininet
 
-git checkout class/cs244
+git checkout adf-tc-renumber
 
-# fix small bug in util/install.sh
-cat util/install.sh | sed "s/install git$/install git-core/" > util/install.sh-fixed
+# use our OpenFlow reference switch
+cat util/install.sh | sed "s/\/openflowswitch.org/\/github.com\/brownsys/" > util/install.sh-fixed
 mv -f util/install.sh-fixed util/install.sh
 chmod a+x util/install.sh
 
@@ -149,9 +142,11 @@ echo "Installing and building PANE ..."
 
 if [ ! -d "pane" ]; then
     git clone git://github.com/brownsys/pane.git
+    git checkout -t origin/nib-rewrite
 fi
 
 pushd pane
+git checkout nib-rewrite
 cabal install --only-dependencies
 make
 make clientlibs
