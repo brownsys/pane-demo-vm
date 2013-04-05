@@ -94,11 +94,11 @@ if [ ! -d ~/openflow ]; then
     ./util/install.sh -f
 fi
 
-if [ ! -d ~/openvswitch ]; then
+if [ "`which ovsdb-tool`" == "" ]; then
     ./util/install.sh -v
 fi
 
-./util/install.sh -kmntw
+./util/install.sh -ntw
 sudo make develop
 
 popd
@@ -109,13 +109,14 @@ popd
 
 echo "Setting-up Open vSwitch..."
 
-if [ -f /usr/local/etc/ovs-vswitchd.conf.db ]; then
-    rm /usr/local/etc/ovs-vswitchd.conf.db
+OVS_CONF=/var/lib/openvswitch/conf.db
+OVS_SCHEMA=/usr/share/openvswitch/vswitch.ovsschema
+
+if [ -f $OVS_CONF ]; then
+    sudo rm $OVS_CONF
 fi
 
-pushd ~/openvswitch
-sudo ovsdb-tool create /usr/local/etc/ovs-vswitchd.conf.db vswitchd/vswitch.ovsschema
-popd
+sudo ovsdb-tool create $OVS_CONF $OVS_SCHEMA
 
 #
 # Install and build Nettle
