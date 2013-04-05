@@ -109,6 +109,8 @@ popd
 
 echo "Setting-up Open vSwitch..."
 
+sudo service openvswitch-switch stop
+
 OVS_CONF=/var/lib/openvswitch/conf.db
 OVS_SCHEMA=/usr/share/openvswitch/vswitch.ovsschema
 
