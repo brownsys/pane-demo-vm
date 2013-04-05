@@ -98,7 +98,11 @@ if [ "`which ovsdb-tool`" == "" ]; then
     ./util/install.sh -v
 fi
 
-./util/install.sh -ntw
+if [ ! -d ~/of-dissector ]; then
+    ./util/install.sh -w
+fi
+
+./util/install.sh -nt
 sudo make develop
 
 popd
