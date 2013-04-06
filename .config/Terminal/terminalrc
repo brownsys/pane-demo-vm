@@ -42,7 +42,7 @@ AccelCloseTab=<Primary>w
 AccelDetachTab=<Primary>d
 AccelCloseWindow=<Primary>q
 AccelSelectAll=<Primary>a
-AccelPrevTab=F2
-AccelNextTab=F1
+AccelPrevTab=F1
+AccelNextTab=F2
 AccelContents=
 
