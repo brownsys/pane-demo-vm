@@ -43,20 +43,20 @@ class PaneDemo(object):
 
         # Create an empty network with one switch
         topo = PaneTopo()
-        switch = topo.add_switch('s1')
+        switch = topo.addSwitch('s1')
 
         # Add gateway
-        panenat = topo.add_host('pane-nat', inNamespace=False, cpu=0.02)
-        topo.add_link(panenat, switch, **linkopts)
+        panenat = topo.addHost('pane-nat', inNamespace=False, cpu=0.02)
+        topo.addLink(panenat, switch, **linkopts)
 
         # Add PANE controller
-        panebrain = topo.add_host('panebrain', inNamespace=False, cpu=0.08)
-        topo.add_link(panebrain, switch, **linkopts)
+        panebrain = topo.addHost('panebrain', inNamespace=False, cpu=0.08)
+        topo.addLink(panebrain, switch, **linkopts)
 
         # Add some regular hosts
         for h in irange(1, num_hosts):
-            host = topo.add_host('host%s' % h, cpu=0.4/num_hosts)
-            topo.add_link(host, switch, **linkopts)
+            host = topo.addHost('host%s' % h, cpu=0.4/num_hosts)
+            topo.addLink(host, switch, **linkopts)
 
         return topo
 
