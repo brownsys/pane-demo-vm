@@ -6,7 +6,12 @@ promise of Participatory Networking.
 
 To get started:
 
-1. Use `./bin/start-ovs.sh` to launch Open vSwitch.
-2. Try out some scripts in the demos directory. For example:
+1. Try out some scripts in the demos directory. For example:
     * `sudo demos/PaneDemo.py` launches a simple network with a PANE controller.
     * `sudo demos/ZooKeeperDemo.py` launches a PANE-enabled ZooKeeper ensemble.
+These will silently launch a PANE controller within the demo.
+
+2. To run PANE separately: `./pane/pane -p 4242` and start demos with
+   `--controller=remote`.
+
+Both PANE and the demos display help with a `--help` option.

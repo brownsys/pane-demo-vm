@@ -1,7 +1,15 @@
-Procedure to install on a fresh VM:
+Procedure to create a fresh VM:
 
-cd ~
-sudo umount .gvfs
-sudo rm -rf .* *
-git clone git://github.com/brownsys/pane-demo-vm.git .
-./bin/setup-demo.sh
+1) Install Ubuntu Server 64-bit in a Virtual Box VM (1 GB RAM, 15 GB HDD)
+   - Hostname: panedemo, User: paneuser / paneuser
+   - No LVM, disk encryption, or other features
+
+2) After the new OS boots, login and do:
+   cd /tmp
+   wget https://raw.github.com/brownsys/pane-demo-vm/master/bin/configure-vm.sh
+   bash ./configure-vm.sh
+
+3) Upon reboot, you should be brought to the XFCE desktop environment and
+   logged-in as paneuser.
+
+4) Finsh-up by installing the Virtual Box Guest Additions
