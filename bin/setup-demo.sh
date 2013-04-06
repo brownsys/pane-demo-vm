@@ -30,7 +30,7 @@ echo "Installing configuration files..."
 
 sudo cp -f etc/hosts /etc/hosts
 sudo cp -f etc/lightdm/lightdm.conf /etc/lightdm.conf
-sudo useradd -G nopasswdlogin paneuser
+sudo usermod -a -G nopasswdlogin paneuser
 
 cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
@@ -39,7 +39,7 @@ cp /etc/skel/.bash_logout .
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -N "" -f ~/.ssh/id_rsa
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-    ssh-add
+    ssh-add || true
     ssh -o StrictHostKeyChecking=no localhost /bin/true
     ssh -o StrictHostKeyChecking=no panedemo /bin/true
 fi
