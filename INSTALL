@@ -20,3 +20,7 @@ Bonus... If you want to free some space in your spare image:
    $ cat /dev/zero  > zeros ; sync ; sleep 1 ; sync ; rm -f zeros
 2) Then, shutdown guest OS, and in the host OS, do:
    $ VBoxManage modifyhd --compact /path/to/image.vdi
+
+If you use VMWare instead of Virtual Box, the procedure to shrink the
+zero'd disk is to install the guest OS tools, and run vmware-toolbox
+from within the guest OS.

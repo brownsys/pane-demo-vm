@@ -29,7 +29,7 @@ cd /home/paneuser
 echo "Installing configuration files..."
 
 sudo cp -f etc/hosts /etc/hosts
-sudo cp -f etc/lightdm/lightdm.conf /etc/lightdm.conf
+sudo cp -f etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 sudo usermod -a -G nopasswdlogin paneuser
 
 cp /etc/skel/.bashrc .
