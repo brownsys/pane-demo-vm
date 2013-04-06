@@ -29,6 +29,8 @@ cd /home/paneuser
 echo "Installing configuration files..."
 
 sudo cp -f etc/hosts /etc/hosts
+sudo cp -f etc/lightdm/lightdm.conf /etc/lightdm.conf
+sudo useradd -G nopasswdlogin paneuser
 
 cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
@@ -149,7 +151,9 @@ echo "Installing and building PANE ..."
 
 if [ ! -d "pane" ]; then
     git clone git://github.com/brownsys/pane.git
+    cd pane
     git checkout -t origin/nib-rewrite
+    cd ..
 fi
 
 pushd pane

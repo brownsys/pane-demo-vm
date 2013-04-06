@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="idle_dim_battery" mtime="1328238406" type="bool" value="true"/>
-	<entry name="battery_reduce" mtime="1328238406" type="bool" value="true"/>
-	<entry name="idle_dim_ac" mtime="1328238406" type="bool" value="false"/>
-</gconf>
