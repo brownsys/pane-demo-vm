@@ -7,17 +7,20 @@ from optparse import OptionParser
 from mininet.net import Mininet
 from mininet.cli import CLI
 from mininet.log import lg
-from mininet.node import Node, OVSKernelSwitch, RemoteController, CPULimitedHost
+from mininet.node import Node, UserSwitch, RemoteController, CPULimitedHost
 from mininet.link import TCLink
 from mininet.util import irange, customConstructor
 
 from PaneDemoUtil import LocalPaneController, PaneTopo, OVSTCSwitch, setupPaneNAT, clearPaneNAT, addDictOption
 
 
-
-CONTROLLERDEF = 'local'
-CONTROLLERS = { 'local': LocalPaneController,
+CONTROLLERDEF = 'pane'
+CONTROLLERS = { 'pane': LocalPaneController,
                 'remote': RemoteController }
+
+SWITCHDEF =  'ovstc'
+SWITCHES = { 'ovstc': OVSTCSwitch,
+             'user': UserSwitch }
 
 
 class PaneDemo(object):
@@ -33,6 +36,7 @@ class PaneDemo(object):
 
     def parseArgs(self):
         opts = OptionParser()
+        addDictOption(opts, SWITCHES, SWITCHDEF, 'switch')
         addDictOption(opts, CONTROLLERS, CONTROLLERDEF, 'controller')
         self.options, self.args = opts.parse_args()
 
@@ -84,10 +88,11 @@ class PaneDemo(object):
     def runDemo(self, host_cmd='/usr/sbin/sshd', host_cmd_opts='-D'):
         topo = self.buildTopo()
         controller = customConstructor(CONTROLLERS, self.options.controller)
+        switch = customConstructor(SWITCHES, self.options.switch)
 
         network = Mininet(topo, controller=controller, link=TCLink, 
                           # host=CPULimitedHost, # seems better without this
-                          switch=OVSTCSwitch, ipBase='10.0.0.0/24')
+                          switch=switch, ipBase='10.0.0.0/24')
 
         self.launchNetwork(network, host_cmd, host_cmd_opts)
         self.demo(network)
