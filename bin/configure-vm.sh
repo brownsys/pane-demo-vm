@@ -59,7 +59,8 @@ sudo apt-get -y --purge remove xfce4-notes xfce4-notes-plugin
 sudo apt-get -y --purge remove gcalctool
 sudo apt-get -y --purge remove vala-terminal
 sudo apt-get -y --purge remove file-roller
-sudo apt-get -y --purge remove xfce4-dict
+sudo apt-get -y --purge remove xfce4-dict dictionaries-common
+sudo apt-get -y --purge remove genisoimage
 
 sudo apt-get -y --purge autoremove
 sudo apt-get -y upgrade
@@ -88,6 +89,7 @@ git clone git://github.com/brownsys/pane-demo-vm.git .
 ssh-agent
 ./bin/setup-demo.sh
 
+sudo apt-get -y --purge remove avahi-daemon libnss-mdns
 sudo apt-get -y --purge autoremove
 sudo apt-get update
 sudo apt-get -y upgrade

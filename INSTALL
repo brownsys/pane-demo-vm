@@ -13,3 +13,10 @@ Procedure to create a fresh VM:
    logged-in as paneuser.
 
 4) Finish-up by installing the Virtual Box Guest Additions
+
+Bonus... If you want to free some space in your spare image:
+
+1) In your guest OS, do:
+   $ cat /dev/zero  > zeros ; sync ; sleep 1 ; sync ; rm -f zeros
+2) Then, shutdown guest OS, and in the host OS, do:
+   $ VBoxManage modifyhd --compact /path/to/image.vdi
