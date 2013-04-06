@@ -3,10 +3,12 @@
 *.pyc
 zookeeper/server*/logs/
 zookeeper/server*/data/
+pane.log
 
 # ignore for now, could be submodules later
 brownsys-nettle/
 mininet/
+of-dissector/
 openflow/
 openvswitch/
 pane/
