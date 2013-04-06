@@ -163,7 +163,7 @@ class iperfRunner(threading.Thread):
         if self.client:
             cmd = "iperf -c %s -d -t 240" % self.target
         else:
-            cmd = "iperf -s"
+            cmd = "iperf -s -P 1"
         self.zkdemo.netexec(cmd, host=self.host)
         self.zkdemo.iperfWait()
 

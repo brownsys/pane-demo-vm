@@ -38,8 +38,8 @@ class PaneDemo(object):
 
     def buildTopo(self):
         num_hosts = 7
-        # 10 Mbps bandwidth and 2 ms delay on each link
-        linkopts = dict(bw=10, delay='2ms', loss=0, use_htb=True)
+        # 15 Mbps bandwidth and 2 ms delay on each link
+        linkopts = dict(bw=15, delay='2ms', loss=0, use_htb=True)
 
         # Create an empty network with one switch
         topo = PaneTopo()
@@ -86,7 +86,7 @@ class PaneDemo(object):
         controller = customConstructor(CONTROLLERS, self.options.controller)
 
         network = Mininet(topo, controller=controller, link=TCLink, 
-                          # host=CPULimitedHost, # TODO(adf) upgrade Ubuntu?
+                          # host=CPULimitedHost, # seems better without this
                           switch=OVSTCSwitch, ipBase='10.0.0.0/24')
 
         self.launchNetwork(network, host_cmd, host_cmd_opts)
