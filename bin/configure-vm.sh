@@ -98,7 +98,9 @@ rm google-chrome*
 ##
 
 cd ~
+set +e
 sudo rm -rf .* *
+set -e
 git clone git://github.com/brownsys/pane-demo-vm.git .
 ./bin/setup-demo.sh
 
