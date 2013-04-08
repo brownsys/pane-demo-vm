@@ -90,7 +90,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 set +e
 sudo dpkg -i google-chrome*
 set -e
-sudo apt-get install -f
+sudo apt-get -y install -f
 rm google-chrome*
 
 ##
