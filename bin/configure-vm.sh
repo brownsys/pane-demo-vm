@@ -51,7 +51,7 @@ sudo apt-get -y --purge remove ristretto
 sudo apt-get -y --purge remove xchat
 sudo apt-get -y --purge remove gstreamer*
 sudo apt-get -y --purge remove evince
-sudo apt-get -y --purge remove simple-scan sane-utils libsane libsanecommon
+sudo apt-get -y --purge remove simple-scan sane-utils libsane libsane-common
 sudo apt-get -y --purge remove orage
 sudo apt-get -y --purge remove catfish
 sudo apt-get -y --purge remove leafpad
