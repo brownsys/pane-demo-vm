@@ -114,11 +114,12 @@ sudo apt-get clean
 ##
 # From Mininet creation notes:
 ##
-echo <<EOF
+cat <<EOF
 
+All Finished! You are now ready for:
+$ sudo /sbin/reboot
 
-
-You may need to reboot and then:
+After a reboot you *may* need to do:
 sudo dpkg-reconfigure openvswitch-datapath-dkms
 sudo service openvswitch-switch start
 EOF
