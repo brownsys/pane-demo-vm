@@ -75,12 +75,7 @@ cabal update
 echo "Installing and building mininet..."
 
 if [ ! -d "mininet" ]; then
-#    git clone git://github.com/mininet/mininet.git
-# Temporarily use my fork until some patches are applied upstream
-    git clone git://github.com/adferguson/mininet.git
-    cd mininet
-    git checkout -t origin/adf-tc-renumber
-    cd ..
+    git clone git://github.com/mininet/mininet.git
 fi
 
 pushd mininet
