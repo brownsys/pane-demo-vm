@@ -54,7 +54,7 @@ class OVSTCSwitch(OVSSwitch):
             # Establish a default configuration for OVS's QoS
             self.cmd('ovs-vsctl -- set Port ' + intf.name + ' qos=@newqos'
                      ' -- --id=@newqos create QoS type=' + qostype
-                     ' queues=0=@default'
+                     ' queues=0=@default' +
                      ' -- --id=@default create Queue other-config:min-rate=1')
             # Reset Mininet's configuration
             res = intf.config( **intf.params )
