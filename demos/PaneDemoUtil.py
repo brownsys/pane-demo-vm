@@ -39,25 +39,34 @@ class PaneTopo(Topo):
 
 class OVSTCSwitch(OVSSwitch):
     # A version of OVSSwitch with which you can use OVS's QoS support
-    # Currently, only supports HTB, although OVS also supports HFSC
 
     def TCReapply(self, intf):
         if type(intf) is TCIntf:
-            # Default configuration for OVS's QoS
+            # OVS supports hfsc and htb; determine which is in use:
+            qostype = self.cmd('ovs-vsctl get QoS ' + intf.name + ' type')
+            if qostype != "linux-htb" and qostype != "linux-hfsc":
+                return
+            qos = qostype.split("-")[1]
+            rateCmd = "rate" if qos == "htb" else "sc rate" # hfsc
+            # Get OVS's idea of the interface's speed:
+            ifspeed = 'ovs-vsctl get interface ' + intf.name + ' link_speed'
+
+            # Establish a default configuration for OVS's QoS
             self.cmd('ovs-vsctl -- set Port ' + intf.name + ' qos=@newqos'
-                     ' -- --id=@newqos create QoS type=linux-htb'
+                     ' -- --id=@newqos create QoS type=' + qostype
                      ' queues=0=@default'
                      ' -- --id=@default create Queue other-config:min-rate=1')
             # Reset Mininet's configuration
             res = intf.config( **intf.params )
             parent = res['parent']
-            # Re-add qdisc, root, and default classes OVS created
+            # Re-add qdisc, root, and default classes OVS created, but with
+            # new parent, as setup by Mininet's TCIntf
             intf.tc("%s qdisc add dev %s " + parent +
-                    " handle 1: htb default 1")
-            intf.tc("%s class add dev %s classid 1:0xfffe parent 1: htb"
-                    " rate 10000Mbit")
-            intf.tc("%s class add dev %s classid 1:1 parent 1:0xfffe htb"
-                    " rate 1500")
+                    " handle 1: " + qos + " default 1")
+            intf.tc("%s class add dev %s classid 1:0xfffe parent 1: " +
+                    qos + " " + rateCmd + " " + ifspeed)
+            intf.tc("%s class add dev %s classid 1:1 parent 1:0xfffe " +
+                    qos + " " + rateCmd + " 1500")
 
     def dropOVSqos(self, intf):
         out = self.cmd('ovs-vsctl -- get QoS ' + intf.name + ' queues')
