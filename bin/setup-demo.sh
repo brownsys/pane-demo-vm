@@ -80,8 +80,6 @@ fi
 
 pushd mininet
 
-git checkout adf-tc-renumber
-
 # use our OpenFlow reference switch
 cat util/install.sh | sed "s/\/openflowswitch.org/\/github.com\/brownsys/" > util/install.sh-fixed
 mv -f util/install.sh-fixed util/install.sh
