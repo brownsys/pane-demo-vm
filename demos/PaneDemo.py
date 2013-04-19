@@ -11,15 +11,15 @@ from mininet.node import Node, UserSwitch, RemoteController, CPULimitedHost
 from mininet.link import TCLink
 from mininet.util import irange, customConstructor
 
-from PaneDemoUtil import LocalPaneController, PaneTopo, OVSTCSwitch, setupPaneNAT, clearPaneNAT, addDictOption
+from PaneDemoUtil import LocalPaneController, PaneTopo, OVSHtbQosSwitch, setupPaneNAT, clearPaneNAT, addDictOption
 
 
 CONTROLLERDEF = 'pane'
 CONTROLLERS = { 'pane': LocalPaneController,
                 'remote': RemoteController }
 
-SWITCHDEF =  'ovstc'
-SWITCHES = { 'ovstc': OVSTCSwitch,
+SWITCHDEF =  'ovshtb'
+SWITCHES = { 'ovshtb': OVSHtbQosSwitch,
              'user': UserSwitch }
 
 
