@@ -14,3 +14,31 @@ openvswitch/
 pane/
 zookeeper/pane-zookeeper/
 zookeeper/zookeeper-benchmark/
+
+# ignore; we copy these files from /etc/skel
+.bash_logout
+.bashrc
+.profile
+
+# files created during regular operation
+.ICEauthority
+.Xauthority
+.ant/
+.bash_history
+.cabal/
+.cache/
+.config/user-dirs.*
+.dbus/
+.ghc/
+.gitconfig
+.gtk-bookmarks
+.lesshst
+.local/
+.m2/
+.matplotlib/
+.pam_environment
+.rnd
+.ssh/
+.viminfo
+.wireshark/
+.xsession-errors*
