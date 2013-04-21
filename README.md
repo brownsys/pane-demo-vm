@@ -11,7 +11,7 @@ To get started:
     * `sudo demos/ZooKeeperDemo.py` launches a PANE-enabled ZooKeeper ensemble.
 These will silently launch a PANE controller within the demo.
 
-2. To run PANE separately: `./pane/pane -p 4242` and start demos with
-   `--controller=remote`.
+2. To run PANE separately: `./pane/pane -c etc/pane.cfg -p 4242` and start
+   demos with `--controller=remote`.
 
 Both PANE and the demos display help with a `--help` option.
