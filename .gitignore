@@ -27,6 +27,7 @@ zookeeper/zookeeper-benchmark/
 .bash_history
 .cabal/
 .cache/
+.config/google-chrome/
 .config/user-dirs.*
 .dbus/
 .ghc/
@@ -37,6 +38,7 @@ zookeeper/zookeeper-benchmark/
 .m2/
 .matplotlib/
 .pam_environment
+.pki/
 .rnd
 .ssh/
 .viminfo
