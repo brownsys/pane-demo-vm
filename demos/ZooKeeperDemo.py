@@ -47,6 +47,14 @@ class ZooKeeperDemo(PaneDemo):
         self.zkmanage("conf-pane", "start")
         self.pause(5)
 
+        # Make reservations for benchmark client
+        print
+        print "*** Reserving bandwidth for benchmark client"
+        print
+        self.netexec("cat zookeeper/benchmark-resvs.txt | telnet panebrain 4242",
+                     host="host7")
+        self.pause(2)
+
         # Run the benchmark again with heavily loaded links
         self.iperfLaunch()
         self.benchmark("with-pane")

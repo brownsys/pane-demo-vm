@@ -1,0 +1,11 @@
+root.
+reserve(srcHost=10.0.0.9, dstHost=10.0.0.3, dstPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(srcHost=10.0.0.9, dstHost=10.0.0.4, dstPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(srcHost=10.0.0.9, dstHost=10.0.0.5, dstPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(srcHost=10.0.0.9, dstHost=10.0.0.6, dstPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(srcHost=10.0.0.9, dstHost=10.0.0.7, dstPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(dstHost=10.0.0.9, srcHost=10.0.0.3, srcPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(dstHost=10.0.0.9, srcHost=10.0.0.4, srcPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(dstHost=10.0.0.9, srcHost=10.0.0.5, srcPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(dstHost=10.0.0.9, srcHost=10.0.0.6, srcPort=2181, transport=6) = 10 on rootShare from now to +300.
+reserve(dstHost=10.0.0.9, srcHost=10.0.0.7, srcPort=2181, transport=6) = 10 on rootShare from now to +300.
