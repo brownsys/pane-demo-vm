@@ -68,6 +68,11 @@ class PaneDemo(object):
         network.start()
         setupPaneNAT(network)
 
+        # Increase ARP timeout from 60 seconds to 1 hour
+        for host in network.hosts:
+            host.cmd("sysctl -w net.ipv4.neigh." + str(host.defaultIntf()) +
+                     ".gc_stale_time=3600")
+
         print
         print "*** Hosts are running sshd at the following addresses:"
         print
