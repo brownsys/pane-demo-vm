@@ -84,6 +84,7 @@ sudo apt-get -y install openssh-server
 sudo apt-get -y install git
 sudo apt-get -y install vim-gtk
 sudo apt-get -y install emacs
+sudo apt-get -y install linux-crashdump
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # we expect installing google-chrome to "fail", but we fix with apt-get
