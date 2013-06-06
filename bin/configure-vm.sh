@@ -95,7 +95,8 @@ sudo apt-get -y install -f
 rm google-chrome*
 
 ##
-# Install PANE Demo VM
+# Install OpenFlow development VM
+# and (optionally) a PANE demo setup
 ##
 
 cd ~
@@ -103,6 +104,7 @@ set +e
 sudo rm -rf .* *
 set -e
 git clone git://github.com/brownsys/pane-demo-vm.git .
+./bin/setup-openflow-dev.sh
 ./bin/setup-demo.sh
 
 sudo apt-get -y --purge remove avahi-daemon libnss-mdns
@@ -112,15 +114,4 @@ sudo apt-get -y upgrade
 sudo apt-get -y --purge autoremove
 sudo apt-get clean
 
-##
-# From Mininet creation notes:
-##
-cat <<EOF
-
-All Finished! You are now ready for:
-$ sudo /sbin/reboot
-
-After a reboot you *may* need to do:
-sudo dpkg-reconfigure openvswitch-datapath-dkms
-sudo service openvswitch-switch start
-EOF
+sudo /sbin/reboot
