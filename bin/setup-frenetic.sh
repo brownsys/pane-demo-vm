@@ -20,8 +20,10 @@ echo 'cat etc/hosts.generic >> /etc/hosts' | sudo bash
 
 wget http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1.tar.bz2
 tar xjf ocaml*
-cd ocaml*
+pushd ocaml*
 ./configure && make world.opt && sudo make install
+popd
+rm ocaml*.tar.bz2
 
 #
 # Install OPAM
