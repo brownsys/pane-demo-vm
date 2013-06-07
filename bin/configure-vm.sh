@@ -81,8 +81,7 @@ sudo apt-get -y --purge remove w3m
 sudo apt-get -y --purge remove dosfstools
 sudo apt-get -y --purge remove libsmbclient
 sudo apt-get -y --purge remove sound-theme-freedesktop
-sudo apt-get -y --purge remove mercurial*
-sudo apt-get -y --purge remove gnome-mines gnomine
+sudo apt-get -y --purge remove gnomine # gnome-mines as well on 13.04 ?
 
 sudo apt-get -y --purge autoremove
 sudo apt-get -y upgrade

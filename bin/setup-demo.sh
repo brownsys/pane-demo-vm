@@ -22,7 +22,7 @@ fi
 
 cd /home/paneuser
 
-sudo cat etc/hosts.pane >> /etc/hosts
+echo 'cat etc/hosts.pane >> /etc/hosts' | sudo bash
 
 #
 # Install dependencies we know we need

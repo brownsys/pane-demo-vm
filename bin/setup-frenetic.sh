@@ -12,7 +12,7 @@ set -o nounset
 
 cd
 
-sudo cat etc/hosts.generic >> /etc/hosts
+echo 'cat etc/hosts.generic >> /etc/hosts' | sudo bash
 
 #
 # Install and build OCaml
@@ -27,10 +27,12 @@ cd ocaml*
 # Install OPAM
 #
 
-echo "deb [arch=amd64] http://www.recoil.org/~avsm/ wheezy main" >> /etc/apt/sources.list
+echo 'echo "deb [arch=amd64] http://www.recoil.org/~avsm/ wheezy main" >> /etc/apt/sources.list' | sudo bash
 sudo apt-get update
 sudo apt-get -y --force-yes install opam
+set +e
 opam init -y
+set -e
 . ~/.opam/opam-init/init.sh
 
 #
