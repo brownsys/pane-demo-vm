@@ -1,13 +1,13 @@
-Procedure to create a fresh VM:
+Procedure to create a fresh PANE demo VM:
 
-1) Install Ubuntu Server 64-bit in a Virtual Box VM (1 GB RAM, 15 GB HDD)
+1) Install Ubuntu Server 64-bit in a Virtual Box VM (1 GB RAM, 20 GB HDD)
    - Hostname: panedemo, User: paneuser / paneuser
    - No LVM, disk encryption, or other features
 
 2) After the new OS boots, login and do:
    cd /tmp
    wget https://raw.github.com/brownsys/pane-demo-vm/master/bin/configure-vm.sh
-   bash ./configure-vm.sh
+   bash ./configure-vm.sh --pane
 
 3) Upon reboot, you should be brought to the XFCE desktop environment and
    logged-in as paneuser.
@@ -24,3 +24,14 @@ Bonus... If you want to free some space in your spare image:
 If you use VMWare instead of Virtual Box, the procedure to shrink the
 zero'd disk is to install the guest OS tools, and run vmware-toolbox
 from within the guest OS.
+
+============================================
+
+NOTE:
+You can also create Frenetic and FlowLog VM's using the tools in this repo.
+
+1) In step (1) above, use "frenetic" or "flowlog" instead of the "pane*"
+   names as appropriate
+
+2) In step (2) above, use the flags "--frenetic" or "--flowlog" instead
+   of "--pane"
