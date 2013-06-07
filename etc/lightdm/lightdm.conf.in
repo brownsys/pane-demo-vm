@@ -1,5 +1,5 @@
 [SeatDefaults]
-autologin-user=paneuser
+autologin-user=USERNAME
 autologin-user-timeout=0
 greeter-session=lightdm-gtk-greeter
 user-session=xubuntu

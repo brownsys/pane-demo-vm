@@ -24,6 +24,7 @@ sudo apt-get -y install xubuntu-desktop
 ##
 
 sudo apt-get -y --purge remove abiword abiword-common
+sudo apt-get -y --purge remove gnumeric*
 sudo apt-get -y --purge remove account-plugin-facebook
 sudo apt-get -y --purge remove account-plugin-flickr
 sudo apt-get -y --purge remove account-plugin-google
@@ -72,6 +73,8 @@ sudo apt-get -y --purge remove w3m
 sudo apt-get -y --purge remove dosfstools
 sudo apt-get -y --purge remove libsmbclient
 sudo apt-get -y --purge remove sound-theme-freedesktop
+sudo apt-get -y --purge remove mercurial*
+sudo apt-get -y --purge remove gnome-mines gnomine
 
 sudo apt-get -y --purge autoremove
 sudo apt-get -y upgrade

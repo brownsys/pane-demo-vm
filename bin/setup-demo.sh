@@ -22,6 +22,8 @@ fi
 
 cd /home/paneuser
 
+sudo cat etc/hosts.pane >> /etc/hosts
+
 #
 # Install dependencies we know we need
 #

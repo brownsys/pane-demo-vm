@@ -18,9 +18,13 @@ cd
 
 echo "Installing configuration files..."
 
+cat etc/hosts.in | sed s/HOSTNAME/`hostname`/g > etc/hosts
 sudo cp -f etc/hosts /etc/hosts
+
+cat etc/lightdm/lightdm.conf.in | sed s/USERNAME/`whoami`/g > etc/lightdm/lightdm.conf
 sudo cp -f etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
-sudo usermod -a -G nopasswdlogin paneuser
+
+sudo usermod -a -G nopasswdlogin `whoami`
 
 cp /etc/skel/.bashrc .
 cp /etc/skel/.profile .
@@ -31,7 +35,7 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     ssh-add || true
     ssh -o StrictHostKeyChecking=no localhost /bin/true
-    ssh -o StrictHostKeyChecking=no panedemo /bin/true
+    ssh -o StrictHostKeyChecking=no `hostname` /bin/true
 fi
 
 echo -e "\n# Route Setup\n" >> ~/.bashrc
