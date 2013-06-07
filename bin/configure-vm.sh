@@ -8,6 +8,14 @@
 
 set -e
 
+if [ "$1" != "--pane" ] && [ "$1" != "--frenetic" ] && [ "$1" != "--flowlog" ]; then
+    echo -e "Must choose one of:"
+    echo -e "\t--pane"
+    echo -e "\t--frenetic"
+    echo -e "\t--flowlog"
+    exit 1
+fi
+
 echo `whoami` ALL=NOPASSWD: ALL | sudo tee -a /etc/sudoers
 sudo sed -i -e 's/Default/#Default/' /etc/sudoers
 
@@ -88,6 +96,7 @@ sudo apt-get -y install git
 sudo apt-get -y install vim-gtk
 sudo apt-get -y install emacs
 sudo apt-get -y install linux-crashdump
+sudo apt-get -y install screen
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # we expect installing google-chrome to "fail", but we fix with apt-get
@@ -108,7 +117,14 @@ sudo rm -rf .* *
 set -e
 git clone git://github.com/brownsys/pane-demo-vm.git .
 ./bin/setup-openflow-dev.sh
-./bin/setup-demo.sh
+
+if [ "$1" == "--pane" ]; then
+    ./bin/setup-demo.sh
+elif [ "$1" == "--frenetic" ]; then
+    ./bin/setup-frenetic.sh
+elif [ "$1" == "--flowlog" ]; then
+    ./bin/setup-flowlog.sh
+fi
 
 sudo apt-get -y --purge remove avahi-daemon libnss-mdns
 sudo apt-get -y --purge autoremove

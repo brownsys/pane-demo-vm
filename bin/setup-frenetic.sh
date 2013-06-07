@@ -37,7 +37,6 @@ opam init -y
 # Install dependencies for Frenetic
 #
 
-sudo apt-get install -y screen
 sudo apt-get install -y ctags
 
 opam install -y ocamlfind cstruct lwt ounit
