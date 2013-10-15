@@ -43,7 +43,7 @@ set -e
 
 sudo apt-get install -y ctags
 
-opam install -y ocamlfind cstruct lwt ounit
+opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit
 
 #
 # Install Frenetic
