@@ -49,6 +49,21 @@ opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit
 # Install Frenetic
 #
 
+git clone git://github.com/frenetic-lang/ocaml-packet.git
+cd ocaml-packet
+make && make install
+cd
+
+git clone git://github.com/frenetic-lang/ocaml-openflow.git
+cd ocaml-openflow
+make && make install
+cd
+
+git clone git://github.com/frenetic-lang/ocaml-topology.git
+cd ocaml-topology
+make && make install
+cd
+
 git clone git://github.com/frenetic-lang/frenetic.git
 cd frenetic
 make
