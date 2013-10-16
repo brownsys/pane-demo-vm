@@ -33,9 +33,9 @@ echo 'echo "deb [arch=amd64] http://www.recoil.org/~avsm/ wheezy main" >> /etc/a
 sudo apt-get update
 sudo apt-get -y --force-yes install opam
 set +e
-opam init -y
+opam init -y || true
+. ~/.opam/opam-init/init.sh || true
 set -e
-. ~/.opam/opam-init/init.sh
 
 #
 # Install dependencies for Frenetic
@@ -43,7 +43,7 @@ set -e
 
 sudo apt-get install -y ctags
 
-opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit
+opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit quickcheck
 
 #
 # Install Frenetic
@@ -51,11 +51,13 @@ opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit
 
 git clone git://github.com/frenetic-lang/ocaml-packet.git
 cd ocaml-packet
+git checkout 968d4ae10275be23b152aca511a3b45392732009
 make && make install
 cd
 
 git clone git://github.com/frenetic-lang/ocaml-openflow.git
 cd ocaml-openflow
+git checkout 3a6aa098de71ae5a3ab9787f519840d145db998c
 make && make install
 cd
 
@@ -66,10 +68,10 @@ cd
 
 git clone git://github.com/frenetic-lang/frenetic.git
 cd frenetic
+git checkout ba9814de76e707d66a1c1a530cc2b59e00da3791
 make
+sudo make install
 cd
-
-sudo ln -s ~/frenetic/src/Frenetic.d.byte /usr/local/bin/frenetic
 
 echo -e "\nexport OCAMLRUNPARAM=b\n" >> ~/.bashrc
 
