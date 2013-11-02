@@ -8,11 +8,12 @@
 
 set -e
 
-if [ "$1" != "--pane" ] && [ "$1" != "--frenetic" ] && [ "$1" != "--flowlog" ]; then
+if [ "$1" != "--pane" ] && [ "$1" != "--frenetic" ] && [ "$1" != "--flowlog" ] && [ "$1" != "--none" ]; then
     echo -e "Must choose one of:"
     echo -e "\t--pane"
     echo -e "\t--frenetic"
     echo -e "\t--flowlog"
+    echo -e "\t--none"
     exit 1
 fi
 
@@ -115,7 +116,11 @@ set +e
 sudo rm -rf .* *
 set -e
 git clone git://github.com/brownsys/pane-demo-vm.git .
-./bin/setup-openflow-dev.sh
+./bin/prepare-vm.sh
+
+if [ "$1" != "--none" ]; then
+    ./bin/setup-openflow-dev.sh
+fi
 
 if [ "$1" == "--pane" ]; then
     ./bin/setup-demo.sh
