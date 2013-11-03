@@ -130,7 +130,7 @@ elif [ "$1" == "--flowlog" ]; then
     ./bin/setup-flowlog.sh
 fi
 
-sudo apt-get -y --purge remove avahi-daemon libnss-mdns
+sudo apt-get -y --purge remove avahi-autoipd avahi-daemon libnss-mdns
 sudo apt-get -y --purge autoremove
 sudo apt-get update
 sudo apt-get -y upgrade

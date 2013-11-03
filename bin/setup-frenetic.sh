@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Fail on error
-set -e
-
-# Fail on unset var usage
-set -o nounset
-
 #
 # Sanity checks
 #
