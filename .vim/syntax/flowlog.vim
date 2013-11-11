@@ -8,7 +8,7 @@ endif
 syn region flowlogParens start="(" end=")" fold transparent
 
 " Keywords
-syn keyword flowlogLanguageKeywords TABLE EVENT OUTGOING INCOMING
+syn keyword flowlogLanguageKeywords TABLE EVENT OUTGOING INCOMING INCLUDE
 syn keyword flowlogLanguageKeywords DO ON DELETE INSERT FROM WHERE AND NOT OR INTO THEN
 syn keyword flowlogLanguageKeywords and not ANY
 
