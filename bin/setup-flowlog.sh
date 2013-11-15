@@ -40,4 +40,4 @@ source ~/.profile
 
 git clone git://github.com/tnelson/FlowLog.git
 
-opam install -y extlib thrift yojson
+opam install -y extlib thrift yojson oasis
