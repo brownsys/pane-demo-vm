@@ -12,7 +12,7 @@ echo 'cat etc/hosts.generic >> /etc/hosts' | sudo bash
 # Install and build OCaml
 #
 
-wget http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1.tar.bz2
+wget http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01.0.tar.bz2
 tar xjf ocaml*
 pushd ocaml*
 ./configure && make world.opt && sudo make install
@@ -43,15 +43,13 @@ opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit quickcheck
 # Install Frenetic
 #
 
-git clone git://github.com/frenetic-lang/ocaml-packet.git
+git clone git://github.com/adferguson/ocaml-packet.git
 cd ocaml-packet
-git checkout 968d4ae10275be23b152aca511a3b45392732009
 make && make install
 cd
 
-git clone git://github.com/frenetic-lang/ocaml-openflow.git
+git clone git://github.com/adferguson/ocaml-openflow.git
 cd ocaml-openflow
-git checkout 3a6aa098de71ae5a3ab9787f519840d145db998c
 make && make install
 cd
 
@@ -60,9 +58,8 @@ cd ocaml-topology
 make && make install
 cd
 
-git clone git://github.com/frenetic-lang/frenetic.git
+git clone git://github.com/adferguson/frenetic.git
 cd frenetic
-git checkout ba9814de76e707d66a1c1a530cc2b59e00da3791
 make
 sudo make install
 cd
