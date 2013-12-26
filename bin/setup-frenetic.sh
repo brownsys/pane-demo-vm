@@ -9,25 +9,31 @@ cd
 echo 'cat etc/hosts.generic >> /etc/hosts' | sudo bash
 
 #
-# Install and build OCaml
+# Install OCaml 4.0.1.0 and OPAM 1.1.0 from @avsm's PPA
+# based on Frenetic project's Travis CI scripts
 #
 
-wget http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01.0.tar.bz2
-tar xjf ocaml*
-pushd ocaml*
-./configure && make world.opt && sudo make install
-popd
-rm ocaml*.tar.bz2
+sudo apt-get install python-software-properties software-properties-common libssl-dev
+
+sudo add-apt-repository ppa:avsm/ocaml41+opam11
+sudo apt-get update
+sudo apt-get install ocaml ocaml-native-compilers camlp4-extra opam
+
+export OPAMYES=1
+export OPAMVERBOSE=1
+echo OCaml version
+ocaml -version
+echo OPAM versions
+opam --version
+opam --git-version
 
 #
 # Install OPAM
 #
 
-echo 'echo "deb [arch=amd64] http://www.recoil.org/~avsm/ wheezy main" >> /etc/apt/sources.list' | sudo bash
-sudo apt-get update
-sudo apt-get -y --force-yes install opam
 set +e
 opam init -y || true
+eval `opam config env`
 . ~/.opam/opam-init/init.sh || true
 set -e
 
@@ -37,7 +43,10 @@ set -e
 
 sudo apt-get install -y ctags
 
+opam update
+opam install -y base-unix base-threads base-bigarray ssl react lablgtk ocaml-text
 opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit quickcheck
+opam upgrade
 
 #
 # Install Frenetic
@@ -45,11 +54,13 @@ opam install -y cstruct lwt ocamlfind ocamlgraph ounit pa_ounit quickcheck
 
 git clone git://github.com/adferguson/ocaml-packet.git
 cd ocaml-packet
+ocaml setup.ml -configure --enable-tests --enable-quickcheck
 make && make install
 cd
 
 git clone git://github.com/adferguson/ocaml-openflow.git
 cd ocaml-openflow
+ocaml setup.ml -configure --enable-tests --enable-quickcheck --enable-lwt
 make && make install
 cd
 
