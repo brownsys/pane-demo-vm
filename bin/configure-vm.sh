@@ -8,11 +8,12 @@
 
 set -e
 
-if [ "$1" != "--pane" ] && [ "$1" != "--frenetic" ] && [ "$1" != "--flowlog" ] && [ "$1" != "--none" ]; then
+if [ "$1" != "--pane" ] && [ "$1" != "--frenetic" ] && [ "$1" != "--flowlog" ] && [ "$1" != "--just-mininet" ] && [ "$1" != "--none" ]; then
     echo -e "Must choose one of:"
     echo -e "\t--pane"
     echo -e "\t--frenetic"
     echo -e "\t--flowlog"
+    echo -e "\t--just-mininet"
     echo -e "\t--none"
     exit 1
 fi
@@ -128,6 +129,8 @@ elif [ "$1" == "--frenetic" ]; then
     ./bin/setup-frenetic.sh
 elif [ "$1" == "--flowlog" ]; then
     ./bin/setup-flowlog.sh
+elif [ "$1" == "--just-mininet" ]; then
+    ./bin/setup-just-mininet.sh
 fi
 
 sudo apt-get -y --purge remove avahi-autoipd avahi-daemon libnss-mdns
