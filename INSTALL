@@ -14,7 +14,7 @@ Procedure to create a fresh PANE demo VM:
 
 4) Finish-up by installing the Virtual Box Guest Additions
 
-Bonus... If you want to free some space in your spare image:
+Bonus... If you want to free some space in your sparse image:
 
 1) In your guest OS, do:
    $ cat /dev/zero  > zeros ; sync ; sleep 1 ; sync ; rm -f zeros
