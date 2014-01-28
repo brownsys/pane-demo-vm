@@ -47,3 +47,6 @@ echo -e "\n# Cleaning\n" >> ~/.bashrc
 echo "if [ -d \"Documents\" ]; then" >> ~/.bashrc
 echo "    rmdir Documents Downloads Music Pictures Public Templates Videos" >> ~/.bashrc
 echo "fi" >> ~/.bashrc
+
+echo -e "\nulimit -c unlimited\n" >> ~/.bashrc
+echo -e "\nulimit -n 2048\n" >> ~/.bashrc
