@@ -35,9 +35,12 @@ echo -e 'PATH="$HOME/XSB/bin:$PATH"' >> ~/.profile
 source ~/.profile
 
 #
-# Clone FlowLog
+# Install FlowLog
 #
 
-git clone git://github.com/tnelson/FlowLog.git
-
 opam install -y extlib thrift yojson oasis
+
+git clone git://github.com/tnelson/FlowLog.git
+cd FlowLog/interpreter
+make
+cd
