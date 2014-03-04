@@ -13,11 +13,11 @@ echo 'cat etc/hosts.generic >> /etc/hosts' | sudo bash
 # based on Frenetic project's Travis CI scripts
 #
 
-sudo apt-get install python-software-properties software-properties-common libssl-dev
+sudo apt-get -y install python-software-properties software-properties-common libssl-dev
 
-sudo add-apt-repository ppa:avsm/ocaml41+opam11
+echo "yes" | sudo add-apt-repository ppa:avsm/ocaml41+opam11
 sudo apt-get update
-sudo apt-get install ocaml ocaml-native-compilers camlp4-extra opam
+sudo apt-get -y install ocaml ocaml-native-compilers camlp4-extra opam
 
 export OPAMYES=1
 export OPAMVERBOSE=1
@@ -76,6 +76,7 @@ sudo make install
 cd
 
 echo -e "\nexport OCAMLRUNPARAM=b\n" >> ~/.bashrc
+echo -e '\neval `opam config env`\n' >> ~/.bashrc
 
 #
 # Remove PANE demo pieces (temp hack)
